@@ -24,7 +24,7 @@ public class AiAdvisorService {
     private String anthropicApiKey;
 
     private static final String ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
-    private static final String MODEL = "claude-sonnet-4-6";
+    private static final String MODEL = "claude-opus-4-8";
 
     public AiChatResponse ask(AiChatRequest request) {
         // Fetch the dam's full data to give Claude context
