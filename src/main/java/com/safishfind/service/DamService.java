@@ -4,6 +4,7 @@ import com.safishfind.dto.DamDTO;
 import com.safishfind.model.BaitShop;
 import com.safishfind.model.Dam;
 import com.safishfind.model.FishSpecies;
+import com.safishfind.model.Resort;
 import com.safishfind.repository.DamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -95,6 +96,13 @@ public class DamService {
                     .collect(Collectors.toList()));
         }
 
+        // Map resorts
+        if (dam.getResorts() != null) {
+            dto.setResorts(dam.getResorts().stream()
+                    .map(this::toResortDTO)
+                    .collect(Collectors.toList()));
+        }
+
         return dto;
     }
 
@@ -110,6 +118,20 @@ public class DamService {
         dto.setRecordSize(s.getRecordSize());
         dto.setBestSeason(s.getBestSeason());
         dto.setImageUrl(s.getImageUrl());
+        return dto;
+    }
+
+    private DamDTO.ResortDTO toResortDTO(Resort r) {
+        DamDTO.ResortDTO dto = new DamDTO.ResortDTO();
+        dto.setId(r.getId());
+        dto.setName(r.getName());
+        dto.setDescription(r.getDescription());
+        dto.setWebsiteUrl(r.getWebsiteUrl());
+        dto.setPhoneNumber(r.getPhoneNumber());
+        dto.setAccommodationTypes(r.getAccommodationTypes());
+        dto.setFishingAccess(r.getFishingAccess());
+        dto.setFacilities(r.getFacilities());
+        dto.setPriceFrom(r.getPriceFrom());
         return dto;
     }
 

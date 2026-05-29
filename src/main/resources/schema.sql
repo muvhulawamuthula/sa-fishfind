@@ -52,3 +52,17 @@ CREATE TABLE IF NOT EXISTS bait_shops (
     google_maps_url         VARCHAR(500),
     FOREIGN KEY (dam_id) REFERENCES dams(id)
 );
+
+CREATE TABLE IF NOT EXISTS resorts (
+    id                    BIGINT AUTO_INCREMENT PRIMARY KEY,
+    dam_id                BIGINT NOT NULL,
+    name                  VARCHAR(255) NOT NULL,
+    description           VARCHAR(1000),
+    website_url           VARCHAR(500),
+    phone_number          VARCHAR(100),
+    accommodation_types   VARCHAR(500),
+    fishing_access        VARCHAR(500),
+    facilities            VARCHAR(1000),
+    price_from            VARCHAR(200),
+    FOREIGN KEY (dam_id) REFERENCES dams(id)
+);
