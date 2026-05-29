@@ -556,3 +556,17 @@ VALUES
  'Dam views from private deck. Boat charter available for tigerfish fishing. Bring own tackle including wire traces.',
  'Private deck, outdoor shower, braai area, fully equipped kitchen, covered parking, spectacular dam views',
  'Contact for current rates');
+
+-- ================================================================
+-- DAM IMAGES
+-- ================================================================
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/d/df/South_Africa-Tshwane-Rietvlei_dam-01.jpg' WHERE name = 'Rietvlei Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/8/87/Hartbeespoort_Dam01.jpg' WHERE name = 'Hartbeespoort Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/1/18/Cross_Hartbeespoort_Dam_001.jpg' WHERE name = 'Roodekopjes Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/a/a2/View_over_Vaal_Dam.jpg' WHERE name = 'Vaal Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/8/8e/Bronkhorstspruit_Dam-001.jpg' WHERE name = 'Bronkhorstspruit Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/4/49/South_Africa-Hartebeespoot_dam02.jpg' WHERE name = 'Klipvoor Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/9/9d/ISS031-E-120908_-_View_of_South_Africa%2C_Loskop_Dam.jpg' WHERE name = 'Loskop Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/7/75/South_Africa-Hartbeespoot_dam04.jpg' WHERE name = 'Buffelspoort Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/e/e6/South_Africa-Hartebeespoort_dam01.jpg' WHERE name = 'Rust de Winter Dam';
+UPDATE dams SET image_url = 'https://upload.wikimedia.org/wikipedia/commons/7/74/View_Of_The_Vaal_Dam_with_14_Sluice_Gates_Opened_2010.jpg' WHERE name = 'Witbank Dam';
