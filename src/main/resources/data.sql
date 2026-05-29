@@ -282,6 +282,7 @@ VALUES
 -- BAIT SHOPS — additional dams (6–10)
 -- ================================================================
 
+-- Klipvoor (dam_id = 6) — resorts added after bait shops section below
 -- Near Klipvoor (dam_id = 6)
 INSERT INTO bait_shops (dam_id, name, address, latitude, longitude, distance_from_dam_km, phone_number, opening_hours, stock_description, google_maps_url)
 VALUES
@@ -427,6 +428,114 @@ VALUES
  'Direct dam waterfront access. Large shaded fishing banks. Day visitor fishing also available.',
  'Braai areas, large shaded trees, waterfront views, day visitor facilities',
  'Contact for current rates');
+
+-- Roodekopjes (dam_id = 3)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(3, 'Dennekruin Fishing Resort',
+ 'A dedicated family fishing and camping resort established in 2000 on the banks of Roodekopjes Dam, 28 km outside Brits on the R511. One of the best-equipped angling resorts in the North West, with 23 spacious fishing swims catering to casual, competitive, and professional anglers alike. Surrounded by bushveld and home to 249 recorded bird species. Day visitor access is also available subject to availability.',
+ 'https://dennekruinfishingresort.co.za',
+ '081 274 6166',
+ 'Glamping cabins, fisherman cabins, waterside camping sites',
+ '23 designated fishing swims on Roodekopjes Dam. Direct dam bank access. Day visitor angling permitted.',
+ 'Swimming pool, clean ablution blocks, braai facilities, membership programme, day visitor access, birdwatching',
+ 'Contact resort for current rates'),
+(3, 'Roodekoppies Hengeloord',
+ 'A well-known fishing and camping resort on Roodekopjes Dam, popular with local anglers from the Brits and Pretoria areas. The resort is managed by passionate anglers and offers direct dam bank access with good carp and catfish fishing. A favourite for weekend getaways from Gauteng.',
+ 'https://www.facebook.com/p/Roodekoppies-Hengeloord-100079554965857/',
+ NULL,
+ 'Camping and caravan sites',
+ 'Direct dam bank access. Carp, catfish, yellowfish, and bass. Popular with both night and day anglers.',
+ 'Braai facilities, ablution blocks, dam access',
+ 'Contact resort for current rates');
+
+-- Klipvoor (dam_id = 6)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(6, 'Koster Dam Nature Resort',
+ 'A peaceful nature resort on the banks of Koster Dam, situated near Klipvoor Dam in the Koster area of North West Province. The resort prides itself on putting guests first and offering a true escape into nature. Ideal for anglers who want to combine a fishing getaway with boating and water sports. Strict catch-and-release policy with no keepnets allowed — ensuring healthy fish populations for future visits.',
+ 'https://kosterdamresort.co.za',
+ '060 369 3215',
+ 'Camping',
+ 'Catch-and-release fishing on Koster Dam. No keepnets policy. Bass, carp, barber, kurper, and yellowfish.',
+ 'Camping facilities, boating, water skiing, braai areas',
+ 'Contact resort for current rates'),
+(6, 'Borakalalo National Park Camp',
+ 'The official SANParks camp inside Borakalalo National Park, which surrounds Klipvoor Dam. The park is one of the least-visited national parks in South Africa, meaning incredible solitude on the water. Fishing from the dam bank is permitted with a valid permit. The park is home to white rhino, brown hyena, and over 360 bird species. A true wilderness fishing experience within reach of Gauteng.',
+ 'https://www.sanparks.org/parks/borakalalo',
+ NULL,
+ 'Tented camps and basic camping',
+ 'Bank fishing permitted on Klipvoor Dam with SANParks permit. One of the most remote and undisturbed fishing spots near Gauteng.',
+ 'Game drives, hiking trails, birdwatching, ablution facilities',
+ 'Contact SANParks for current rates');
+
+-- Buffelspoort (dam_id = 8)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(8, 'ATKV Buffelspoort',
+ 'A full-service family resort in the heart of the Magaliesberg bushveld, less than an hour from Pretoria and Johannesburg. Set against the dramatic Magaliesberg mountain range with direct access to Buffelspoort Dam. One of the best-equipped resorts in the area, offering a wide range of accommodation from villas to camping. Carp up to 29.7 kg (a former SA record) and largemouth bass up to 6.5 kg have been landed at this dam.',
+ 'https://buffelspoort.co.za',
+ '+27 14 572 1000',
+ 'Villas (8-sleeper), houses (2–5-sleeper), rondavels (2–8-sleeper), tenthouses (4-sleeper), camping',
+ 'Direct dam access. Fishing from non-electrified bank sites. Bass and carp fishing.',
+ 'Heated indoor and outdoor pools, cold pools, jacuzzis, restaurant, sports bar, shop, golf, tennis, minigolf, squash, waterslide, trampolines, ATM',
+ 'Contact resort for current rates'),
+(8, 'Buffelspoort Dam Rest Camp',
+ 'The official dam-side rest camp managed by the local municipality, situated right on the water''s edge. Most campsites are on or very near the water, making it ideal for bank fishing. Non-electrified sites are specifically permitted for fishing. Minimum two-night stay required on weekends and peak season. Simple, affordable, and genuinely close to the water.',
+ 'https://buffelspoortdam.co.za',
+ '+27 74 344 3496',
+ 'Non-electrified camping (fishing allowed), electrified camping (waterfront and non-waterfront)',
+ 'Non-electrified sites: fishing permitted directly in front. Waterfront electrified sites reserved for boats.',
+ 'Braai facilities, ablution blocks, waterfront camping, boating access',
+ 'Non-electrified from R200/night · Waterfront from R270/night');
+
+-- Rust de Winter (dam_id = 9)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(9, 'Rust de Winter Dam Nature Reserve',
+ 'The official Limpopo Department of Economic Development reserve resort at Rust de Winter Dam, situated about 80 km north of Pretoria. A pristine 500-hectare dam surrounded by broad-leaved woodland, riverine forest, and thornveld. Over 400 bird species have been recorded here. The reserve is a rustic breakaway for fishing enthusiasts — boat and shore fishing are both available. Note: tap water on-site is not suitable for drinking.',
+ 'https://www.lwr.gov.za/lodges/resorts/rustdewinter',
+ '+27 15 293 8015',
+ 'Camping with basic ablution facilities (no electricity)',
+ 'Both shore and boat fishing available. Largemouth bass, common carp, and canary kurper. Catch-and-release encouraged.',
+ 'Camping, boating, walking trails, mountain biking, self-drive routes, 4x4 routes, conference hall, food and beverage services, birdwatching (400+ species)',
+ 'Contact reserve for current rates'),
+(9, 'Rust de Winter Safaris',
+ 'A private safari and accommodation operation in the Rust de Winter area, offering guided fishing and birdwatching experiences on and around Rust de Winter Dam. A more personalised alternative to the main reserve camp, with guided boat fishing options and expert local knowledge on bass, carp, and bird species.',
+ 'https://www.rustdewintersafaris.com',
+ NULL,
+ 'Private accommodation and guided day experiences',
+ 'Guided boat fishing on Rust de Winter Dam. Expert local knowledge on bass and carp spots.',
+ 'Guided fishing, birdwatching tours, bushveld walks',
+ 'Contact for guided fishing rates');
+
+-- Witbank (dam_id = 10)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(10, 'Maanlig Resort',
+ 'A resort situated directly on the banks of Witbank Dam, incorporating quality amenities while maintaining a homelike atmosphere. One of the most comfortable options at the dam for both leisure and corporate guests. Witbank Dam holds the former South African largemouth bass record of 6.045 kg (caught 1997), and fish between 3–4 kg are regularly landed here.',
+ 'https://www.maanligresort.co.za',
+ NULL,
+ 'Chalets and resort accommodation',
+ 'Direct dam access. Witbank Dam is home to trophy largemouth bass (former SA record dam), carp, and catfish.',
+ 'State-of-the-art facilities, dam views, braai areas',
+ 'Contact resort for current rates'),
+(10, 'eMalahleni Recreation Resort',
+ 'The municipal resort adjacent to Witbank Dam Nature Reserve, offering affordable camping within the reserve boundaries. 48 camping sites, each accommodating up to 4 people, with fully functioning ablution blocks. A practical base for anglers who want no-frills, close-to-the-water access without resort prices. Situated inside the reserve, game viewing is possible alongside fishing.',
+ 'https://www.emalahleni.gov.za',
+ NULL,
+ '48 camping sites (4 people per site)',
+ 'Dam access within the nature reserve. Bass, carp, and catfish. Reserve is surrounded by highveld bushveld.',
+ 'Ablution blocks with showers, braai facilities, swimming pools, parks, mini-golf, nature reserve access',
+ 'Contact municipality for current rates'),
+(10, 'The Beach Resort Witbank',
+ 'A popular campground and fishing spot on the shores of Witbank Dam at Naauwpoort, eMalahleni. A well-known spot among local Mpumalanga anglers for relaxed bank fishing, particularly for bass and carp. The informal, community-atmosphere resort is a favourite for weekend camping trips from Witbank and surrounding areas.',
+ 'https://www.facebook.com/beachresort.witbank/',
+ NULL,
+ 'Camping and caravan sites',
+ 'Waterside camping with direct dam bank access. Bass and carp fishing.',
+ 'Braai facilities, dam access, camping sites',
+ 'Contact resort for current rates');
 
 -- Loskop Dam (dam_id = 7)
 INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
