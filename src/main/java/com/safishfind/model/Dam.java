@@ -70,4 +70,7 @@ public class Dam {
 
     @OneToMany(mappedBy = "dam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BaitShop> nearbyBaitShops;
+
+    @OneToMany(mappedBy = "dam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Resort> resorts;
 }

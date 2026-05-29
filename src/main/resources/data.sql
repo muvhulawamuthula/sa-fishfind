@@ -311,3 +311,139 @@ INSERT INTO bait_shops (dam_id, name, address, latitude, longitude, distance_fro
 VALUES
 (10, 'Highveld Tackle & Bait', 'Mandela St, eMalahleni (Witbank)', -25.8754, 29.2143, 4.2, '013 653 1234', 'Mon–Sat 06:00–17:30', 'Bass specialist — full lure range, jigs, drop shot gear, finesse tackle. Carp bait and live worms also stocked.', NULL),
 (10, 'Middelburg Fishing World', 'Walter Sisulu St, Middelburg', -25.7734, 29.4632, 22.0, '013 243 5678', 'Mon–Fri 07:00–17:00, Sat 07:00–14:00', 'Large store — rods, reels, clothing, lures, bait, tackle boxes. Competition gear and advice available.', NULL);
+
+-- ================================================================
+-- RESORTS (dams that have on-site or nearby resort accommodation)
+-- ================================================================
+
+-- Rietvlei (dam_id = 1)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(1, 'Rietvlei Nature Reserve Chalets',
+ 'The official Tshwane Municipality chalets situated right on the banks of Rietvlei Dam inside the nature reserve. Self-catering units sleep 4 or 6 guests. Deep water in front of the chalets makes them ideal for overnight fishing sessions. The reserve''s 2 000+ animals — including white rhino, buffalo, and giraffe — are visible from the stoep.',
+ 'http://www.rietvlei.co.za',
+ '012 480 9944',
+ 'Self-catering chalets (4-sleeper and 6-sleeper)',
+ 'Direct dam frontage — fish from the chalet stoep. Fishing permit required and available at the gate.',
+ 'Private braai areas, ablution facilities, secure parking, nature reserve access, game viewing',
+ '4-sleeper from R1 175/night · 6-sleeper from R1 375/night');
+
+-- Hartbeespoort (dam_id = 2)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(2, 'Magalies Park (First Group)',
+ 'A 4-star full-service resort on the edge of Hartbeespoort Dam, one hour from Johannesburg. Offers chalets from 1-bedroom to 3-bedroom units, all within walking distance of the dam. The resort has its own fishing bank with direct dam access — popular species include carp over 22 kg, largemouth bass, and catfish. One of the best-equipped resorts at Harties.',
+ 'https://www.firstgroup-sa.co.za/magalies-park',
+ NULL,
+ '1-bedroom, 2-bedroom, and 3-bedroom self-catering chalets; hotel rooms with Jacuzzi',
+ 'Direct dam bank fishing. Boat launch on site. Fishing tackle hire available.',
+ 'Water park, 18-hole golf course, full spa, multiple swimming pools, restaurant, kids entertainment, hiking trails',
+ 'From R1 800/night'),
+(2, 'De Rust Angling Resort',
+ 'One of Hartbeespoort''s most dedicated fishing resorts, De Rust offers direct dam access with well-maintained fishing banks. A favourite among carp and catfish anglers who want to be as close to the water as possible. Relaxed atmosphere with basic but comfortable facilities.',
+ NULL,
+ NULL,
+ 'Chalets and camping',
+ 'Direct dam access — fishing banks maintained specifically for angling. One of the best night fishing spots on Harties.',
+ 'Braai facilities, ablution blocks, slipway access',
+ 'Contact resort for rates'),
+(2, 'Ifafi Aquatic Club',
+ 'A members-focused aquatic and fishing club on the Ifafi arm of Hartbeespoort Dam. Offers flat-style accommodation with direct waterfront access. Popular with bass anglers targeting the quieter Ifafi inlet. A more private alternative to the busier Schoemansville side.',
+ 'https://ifafiaquaticclub.co.za',
+ NULL,
+ 'Flat accommodation (self-catering)',
+ 'Private dam frontage on the Ifafi arm — quieter fishing away from main boat traffic.',
+ 'Slipway, braai areas, ablution facilities, secure access',
+ 'Contact for rates'),
+(2, 'Kommandonek',
+ 'A popular resort on the Hartbeespoort Dam offering camping and chalet accommodation with dam access. Well-known in the local fishing community for its accessible banks and friendly atmosphere. Situated near the Crocodile River inlet arm of the dam.',
+ 'https://www.facebook.com/Kommandonek/',
+ NULL,
+ 'Chalets, camping, caravan sites',
+ 'Dam bank access for fishing. Good position near the Crocodile River inlet — productive for carp and catfish.',
+ 'Swimming pool, braai areas, ablution blocks, children''s play area',
+ 'Contact resort for rates'),
+(2, 'Schoemansville Resort',
+ 'Situated in the historic Schoemansville village — the oldest settlement at Hartbeespoort Dam — this resort offers cabin-style accommodation with easy access to the dam. Schoemansville is one of the most popular fishing areas on Harties, particularly for bass anglers targeting the rocky points.',
+ 'https://schoemansville-resort.business.site/',
+ NULL,
+ 'Self-catering cabins',
+ 'Short walk to dam. Schoemansville rocky banks are a prime bass fishing location.',
+ 'Braai facilities, parking, proximity to local restaurants and bait shops',
+ 'Contact resort for rates'),
+(2, 'Meerhof Resort',
+ 'Lakeside resort on the Meerhof arm of Hartbeespoort Dam. A quieter, more residential section of the dam popular with local Gauteng anglers who want a peaceful weekend getaway. The Meerhof bank offers good carp and catfish fishing with less boat traffic than the main dam.',
+ 'https://www.facebook.com/meerhofoewer',
+ NULL,
+ 'Self-catering accommodation',
+ 'Direct lakeside access. Meerhof arm is known for good carp fishing in the reed edges.',
+ 'Braai facilities, parking, dam access',
+ 'Contact resort for rates');
+
+-- Bronkhorstspruit (dam_id = 5)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(5, 'Bajadam Resort',
+ 'The premier fishing and boating resort at Bronkhorstspruit Dam, with nearly 4 km of dam waterfront — the longest of any resort on the dam. Both anglers and motorboat enthusiasts are welcome. Shaded camping sites with electricity are available close to the ablution facilities, or pitch your tent on the water''s edge for all-night fishing sessions. The thick bank grass is a favourite for bass anglers.',
+ 'https://www.bajadam.co.za',
+ NULL,
+ 'Camping (powered and unpowered), waterside tent pitches',
+ 'Nearly 4 km of private dam waterfront. Waterside camping for overnight fishing. Bass, carp, barbell, and kurper.',
+ 'Kids play area, lapa and fireplace, ablution blocks, electricity points, slipway, secure access',
+ 'Contact for current rates'),
+(5, 'Kaia Manzi Family Resort',
+ 'A well-appointed family resort nestled on the scenic banks of Bronkhorstspruit Dam, about 60 minutes from Johannesburg, Pretoria, and Witbank. Regularly hosts top angling competitions. Offers a range of accommodation from self-catering units to guesthouse rooms. The resort provides direct dam access and is one of the most comfortable options at the dam.',
+ 'https://kaiamanzi.co.za',
+ '+27 71 851 1346',
+ 'Self-catering open-plan units, guesthouse rooms (2-guest), camping (private and communal)',
+ 'Direct dam access for fishing and boating. Hosts angling competitions. Bass fishing is the main draw.',
+ 'Restaurant, two conference rooms, swimming pools with water slide, braai areas, dam slipway',
+ 'Contact for current rates');
+
+-- Vaal Dam (dam_id = 4)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(4, 'Vaal Marina Resort',
+ 'A self-catering dam-front resort on the Gauteng shores of the Vaal Dam, spanning 26 hectares with a 350 m waterfront. Described as a fisherman''s paradise — chalets are positioned as close as 20 m from the dam. One of the most well-equipped resorts on the Vaal, with a full slipway, jetty, and water sports facilities. Common species: barbel and large carp.',
+ 'https://vaalmarinaresort.co.za',
+ '071 186 7867',
+ 'Modern self-catering chalets (various sizes)',
+ '350 m of dam waterfront. Chalets 20 m from dam edge. Slipway and jetty. Rod hire available.',
+ 'Swimming pools (adult and children''s), water sports, slipway, jetty, braai areas, kids playground, daily housekeeping',
+ 'Contact for current rates'),
+(4, 'RoeMar Resort (formerly Van Driel''s Fishing)',
+ 'A serious angling destination on the Gauteng side of the Vaal Dam, approximately 8 km from Villiers crossing. Features 1 km of private waterfront with approximately 1 m depth drop per 10 m from shore — ideal for big carp and bass. Twelve rustic off-the-grid waterfront cabins and 14 designated waterfront camping stands ensure every guest has private shore access.',
+ 'https://www.vandrielsfishing.co.za',
+ '061 056 1064',
+ '12 waterfront cabins (4-sleeper), 1 cabin (2-sleeper), Die Oewerhuis guesthouse (sleeps 8), 14 waterfront camping stands',
+ '1 km of private shoreline — 20–30 m per guest. Deep water drop-off ideal for carp and bass. Kiosk supplies ice, wood, and bait.',
+ 'Solar/gas power, ablution block, kiosk (bait, ice, wood), fenced property bordering game farm, birdwatching',
+ 'Contact for current rates'),
+(4, 'The View on Vaal Resort',
+ 'A scenic resort on the Vaal Dam known for its large shaded trees, expansive waterfront, and braai amenities right on the water''s edge. Popular with families and anglers alike. Offers day visitor access as well as overnight accommodation. The wide open waterfront is ideal for bank fishing for carp, bass, and catfish.',
+ 'https://www.theviewonvaalresort.co.za',
+ NULL,
+ 'Chalets and day visitor facilities',
+ 'Direct dam waterfront access. Large shaded fishing banks. Day visitor fishing also available.',
+ 'Braai areas, large shaded trees, waterfront views, day visitor facilities',
+ 'Contact for current rates');
+
+-- Loskop Dam (dam_id = 7)
+INSERT INTO resorts (dam_id, name, description, website_url, phone_number, accommodation_types, fishing_access, facilities, price_from)
+VALUES
+(7, 'Loskopdam, A Forever Resort',
+ 'The main resort at Loskop Dam, operated by Forever Resorts. Sits directly on the banks of Loskop Dam in the Loskop Dam Nature Reserve. Offers 40 log cabins, 18 chalets, 8 family houses, a guesthouse, caravan park with 281 powered stands, and a youth hostel. Fishing from the resort banks gives access to tigerfish, bass, carp, and catfish. The surrounding Big Five reserve is included in your stay.',
+ 'https://www.foreverloskopdam.co.za',
+ NULL,
+ 'Log cabins (40), chalets (18), family houses (8), guesthouse (3-bedroom), caravan/camping (281 stands), youth hostel',
+ 'Direct dam bank fishing. 27 fish species available. Boat charter available for tigerfish. Wire traces essential — tigerfish present.',
+ 'Swimming pool, mini-golf, pool table, tennis, volleyball, paintball, trampoline, Big Five nature reserve access, conference facilities',
+ 'From R130 per person'),
+(7, 'Arends Rus',
+ 'A small, intimate self-catering log cabin retreat perched on a private koppie overlooking Loskop Dam. Three well-equipped cabins each sleep 4 guests and offer stunning dam views from private decks. A peaceful alternative to the main Forever Resort. Guests can bring their own boat or charter from Arends Rus for tigerfish and sunset cruises. Cash or EFT only — no card facilities.',
+ 'https://arendsrus.com',
+ '+27 82 888 5341',
+ '3 self-catering log cabins (2 bedrooms, 4-person capacity each)',
+ 'Dam views from private deck. Boat charter available for tigerfish fishing. Bring own tackle including wire traces.',
+ 'Private deck, outdoor shower, braai area, fully equipped kitchen, covered parking, spectacular dam views',
+ 'Contact for current rates');

@@ -41,6 +41,7 @@ public class DamDTO {
 
     private List<FishSpeciesDTO> fishSpecies;
     private List<BaitShopDTO> nearbyBaitShops;
+    private List<ResortDTO> resorts;
 
     // ── Nested DTOs ──────────────────────────────────────────────
 
@@ -74,5 +75,20 @@ public class DamDTO {
         private String openingHours;
         private String stockDescription;
         private String googleMapsUrl;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ResortDTO {
+        private Long id;
+        private String name;
+        private String description;
+        private String websiteUrl;
+        private String phoneNumber;
+        private String accommodationTypes;
+        private String fishingAccess;
+        private String facilities;
+        private String priceFrom;
     }
 }
