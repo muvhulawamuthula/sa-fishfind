@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SA FishFind — South African Dam Fishing Guide</title>
+<style>
+  :root {
+    --bg: #0d1b2a;
+    --bg2: #1b263b;
+    --card: #1b3a4b;
+    --accent: #2ec4b6;
+    --accent2: #ffba08;
+    --text: #e0e6ed;
+    --muted: #8fa3b3;
+    --danger: #ef476f;
+    --ok: #06d6a0;
+    --line: #2c3e50;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(180deg, var(--bg), var(--bg2));
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header {
+    padding: 22px 28px;
+    background: rgba(13,27,42,0.85);
+    border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: blur(8px);
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  header h1 { margin: 0; font-size: 1.5rem; letter-spacing: .5px; }
+  header h1 .fish { color: var(--accent); }
+  header .sub { color: var(--muted); font-size: .85rem; margin-left: 4px; }
+  .tools { margin-left: auto; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .search input {
+    background: var(--bg2); border: 1px solid var(--line); color: var(--text);
+    padding: 9px 14px; border-radius: 20px; width: 240px; font-size: .9rem;
+  }
+  #radius {
+    background: var(--bg2); border: 1px solid var(--line); color: var(--text);
+    padding: 8px 12px; border-radius: 20px; font-size: .85rem; cursor: pointer;
+  }
+  .btn-geo {
+    background: var(--accent); color: #04231f; border: none; padding: 9px 16px;
+    border-radius: 20px; font-weight: 700; cursor: pointer; font-size: .88rem; white-space: nowrap;
+  }
+  .btn-geo:disabled { opacity: .6; cursor: default; }
+  .banner {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    background: rgba(46,196,182,.1); border: 1px solid var(--accent); color: var(--text);
+    padding: 11px 16px; border-radius: 12px; margin-bottom: 18px; font-size: .9rem;
+  }
+  .banner.err { background: rgba(239,71,111,.1); border-color: var(--danger); color: var(--danger); }
+  .banner button {
+    margin-left: auto; background: var(--bg2); color: var(--accent); border: 1px solid var(--line);
+    padding: 6px 14px; border-radius: 16px; cursor: pointer; font-size: .82rem; font-weight: 600;
+  }
+  .badge.dist { color: var(--accent); border-color: var(--accent); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px 28px 80px; }
+  .grid {
+    display: grid; gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  .dam-card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    overflow: hidden; cursor: pointer; transition: transform .15s, box-shadow .15s;
+    display: flex; flex-direction: column;
+  }
+  .dam-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.4); }
+  .dam-card .img {
+    height: 160px; background-size: cover; background-position: center;
+    background-color: var(--bg2); position: relative;
+  }
+  .dam-card .img .region {
+    position: absolute; bottom: 8px; left: 10px; background: rgba(0,0,0,.65);
+    padding: 3px 10px; border-radius: 12px; font-size: .72rem; color: var(--accent);
+  }
+  .dam-card .body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .dam-card h3 { margin: 0; font-size: 1.15rem; }
+  .dam-card .desc { color: var(--muted); font-size: .82rem; line-height: 1.4;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; }
+  .badge {
+    font-size: .68rem; padding: 3px 8px; border-radius: 10px; font-weight: 600;
+    background: var(--bg2); color: var(--muted); border: 1px solid var(--line);
+  }
+  .badge.fee { color: var(--accent2); }
+  .badge.danger { color: var(--danger); border-color: var(--danger); }
+  .badge.ok { color: var(--ok); }
+  .activity-HIGH { color: var(--ok); }
+  .activity-MEDIUM { color: var(--accent2); }
+  .activity-LOW { color: var(--danger); }
+
+  /* Modal */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.7); z-index: 50;
+    display: none; align-items: flex-start; justify-content: center; padding: 30px 16px; overflow-y: auto;
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--bg2); border: 1px solid var(--line); border-radius: 16px;
+    max-width: 880px; width: 100%; overflow: hidden;
+  }
+  .modal .hero { height: 220px; background-size: cover; background-position: center; position: relative; }
+  .modal .hero .close {
+    position: absolute; top: 14px; right: 14px; background: rgba(0,0,0,.6); border: none;
+    color: #fff; width: 36px; height: 36px; border-radius: 50%; font-size: 1.2rem; cursor: pointer;
+  }
+  .modal .hero .title {
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 30px 24px 14px;
+    background: linear-gradient(transparent, rgba(13,27,42,.95));
+  }
+  .modal .hero .title h2 { margin: 0; font-size: 1.7rem; }
+  .modal .hero .title .region { color: var(--accent); font-size: .85rem; }
+  .modal .content { padding: 22px 24px; }
+  .modal p.desc { color: var(--text); line-height: 1.55; font-size: .92rem; }
+  .section { margin-top: 22px; }
+  .section h4 {
+    margin: 0 0 12px; font-size: .95rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent); border-bottom: 1px solid var(--line); padding-bottom: 6px;
+  }
+  .info-row { display: flex; flex-wrap: wrap; gap: 18px; color: var(--muted); font-size: .85rem; }
+  .info-row b { color: var(--text); }
+  .safety {
+    background: rgba(239,71,111,.08); border: 1px solid var(--danger); border-radius: 10px;
+    padding: 12px 14px; font-size: .85rem; line-height: 1.5;
+  }
+  .safety.safe { background: rgba(6,214,160,.08); border-color: var(--ok); }
+  .species, .shop, .resort {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 14px; margin-bottom: 10px; font-size: .85rem;
+  }
+  .species h5, .shop h5, .resort h5 { margin: 0 0 6px; font-size: .98rem; }
+  .species .sci { color: var(--muted); font-style: italic; font-weight: normal; font-size: .8rem; }
+  .kv { display: grid; grid-template-columns: 120px 1fr; gap: 4px 10px; color: var(--muted); }
+  .kv b { color: var(--text); }
+  a { color: var(--accent); }
+
+  /* AI chat */
+  .chat { margin-top: 24px; }
+  .chat-log {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
+    padding: 14px; min-height: 80px; max-height: 320px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 10px; font-size: .88rem;
+  }
+  .msg { padding: 9px 13px; border-radius: 12px; max-width: 85%; line-height: 1.45; white-space: pre-wrap; }
+  .msg.user { align-self: flex-end; background: var(--accent); color: #04231f; }
+  .msg.ai { align-self: flex-start; background: var(--card); border: 1px solid var(--line); }
+  .msg.hint { align-self: center; color: var(--muted); font-size: .8rem; background: none; }
+  .chat-input { display: flex; gap: 8px; margin-top: 10px; }
+  .chat-input input {
+    flex: 1; background: var(--bg); border: 1px solid var(--line); color: var(--text);
+    padding: 11px 14px; border-radius: 22px; font-size: .9rem;
+  }
+  .chat-input button, .suggest button {
+    background: var(--accent); color: #04231f; border: none; padding: 0 18px;
+    border-radius: 22px; font-weight: 700; cursor: pointer; font-size: .9rem;
+  }
+  .chat-input button:disabled { opacity: .5; cursor: default; }
+  .suggest { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .suggest button {
+    background: var(--bg2); color: var(--accent); border: 1px solid var(--line);
+    padding: 6px 12px; font-size: .78rem; font-weight: 500;
+  }
+  .loading { color: var(--muted); }
+  .empty, .error { text-align: center; color: var(--muted); padding: 60px 20px; }
+  .error { color: var(--danger); }
+  .dot { display: inline-block; animation: blink 1.4s infinite both; }
+  .dot:nth-child(2){ animation-delay:.2s } .dot:nth-child(3){ animation-delay:.4s }
+  @keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎣 SA <span class="fish">FishFind</span></h1>
+  <span class="sub">South African dam fishing guide</span>
+  <div class="tools">
+    <select id="radius" title="Search radius">
+      <option value="50">within 50 km</option>
+      <option value="100" selected>within 100 km</option>
+      <option value="200">within 200 km</option>
+      <option value="500">within 500 km</option>
+    </select>
+    <button id="geoBtn" class="btn-geo" onclick="findNearby()">📍 Near me</button>
+    <div class="search"><input id="search" placeholder="Search dams or regions…" oninput="render()"></div>
+  </div>
+</header>
+
+<div class="container">
+  <div id="banner"></div>
+  <div id="list" class="grid"></div>
+</div>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+const API = '/api/v1';
+let dams = [];
+let nearby = null;   // { lat, lng, radius, dist: Map<id, km> } when "Near me" is active
+
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371, toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function findNearby() {
+  const btn = document.getElementById('geoBtn');
+  const banner = document.getElementById('banner');
+  if (!navigator.geolocation) {
+    banner.className = 'banner err';
+    banner.innerHTML = 'Your browser does not support geolocation.';
+    return;
+  }
+  btn.disabled = true; btn.textContent = '📍 Locating…';
+  navigator.geolocation.getCurrentPosition(async pos => {
+    const radius = Number(document.getElementById('radius').value);
+    await runNearby(pos.coords.latitude, pos.coords.longitude, radius);
+    btn.disabled = false; btn.textContent = '📍 Near me';
+  }, err => {
+    btn.disabled = false; btn.textContent = '📍 Near me';
+    banner.className = 'banner err';
+    banner.innerHTML = `Couldn’t get your location (${esc(err.message)}). Allow location access and try again.`;
+  }, { enableHighAccuracy: true, timeout: 10000 });
+}
+
+// Shared by the geolocation button and the ?near=lat,lng deep-link
+async function runNearby(lat, lng, radius) {
+  const banner = document.getElementById('banner');
+  try {
+    const res = await fetch(`${API}/dams/nearby?lat=${lat}&lng=${lng}&radius=${radius}`);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const found = await res.json();
+    const dist = new Map(found.map(d => [d.id, haversine(lat, lng, d.latitude, d.longitude)]));
+    nearby = { lat, lng, radius, dist };
+    render();
+  } catch (e) {
+    banner.className = 'banner err';
+    banner.innerHTML = `Nearby search failed: ${esc(e.message)}`;
+  }
+}
+
+function clearNearby() { nearby = null; document.getElementById('banner').innerHTML = ''; render(); }
+
+async function load() {
+  const list = document.getElementById('list');
+  try {
+    const res = await fetch(`${API}/dams`);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    dams = await res.json();
+    render();
+    const params = new URLSearchParams(location.search);
+    // Deep-link: ?near=<lat>,<lng>[&radius=km] shows dams near a point (shareable)
+    const near = (params.get('near') || '').split(',').map(Number);
+    if (near.length === 2 && near.every(Number.isFinite)) {
+      await runNearby(near[0], near[1], Number(params.get('radius')) || 100);
+    }
+    // Deep-link: ?dam=<id> opens that dam's detail on load (shareable links)
+    const wanted = Number(params.get('dam'));
+    if (wanted && dams.some(d => d.id === wanted)) openModal(wanted);
+  } catch (e) {
+    list.innerHTML = `<div class="error">Could not reach the API (${e.message}).<br>Is the app running on :8080?</div>`;
+  }
+}
+
+function fmt(n) { return n == null ? '—' : 'R' + Number(n).toLocaleString('en-ZA'); }
+function esc(s) { return (s ?? '').toString().replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const list = document.getElementById('list');
+  const banner = document.getElementById('banner');
+
+  let shown = dams.filter(d =>
+    !q || d.name.toLowerCase().includes(q) || (d.region||'').toLowerCase().includes(q));
+
+  if (nearby) {
+    shown = shown.filter(d => nearby.dist.has(d.id))
+                 .sort((a, b) => nearby.dist.get(a.id) - nearby.dist.get(b.id));
+    banner.className = 'banner';
+    banner.innerHTML = `📍 ${shown.length} dam${shown.length === 1 ? '' : 's'} within `
+      + `${nearby.radius} km of your location`
+      + `<button onclick="clearNearby()">Show all dams</button>`;
+  } else {
+    banner.innerHTML = '';
+  }
+
+  if (!shown.length) {
+    list.innerHTML = `<div class="empty">${nearby
+      ? `No dams within ${nearby.radius} km — try a larger radius.`
+      : `No dams match “${esc(q)}”.`}</div>`;
+    return;
+  }
+
+  list.innerHTML = shown.map(d => `
+    <div class="dam-card" onclick="openModal(${d.id})">
+      <div class="img" style="background-image:url('${esc(d.imageUrl)}')">
+        <span class="region">${esc(d.region) || 'South Africa'}</span>
+      </div>
+      <div class="body">
+        <h3>${esc(d.name)}</h3>
+        <div class="desc">${esc(d.description)}</div>
+        <div class="badges">
+          ${nearby ? `<span class="badge dist">📍 ${nearby.dist.get(d.id).toFixed(1)} km</span>` : ''}
+          <span class="badge fee">Adult ${fmt(d.entranceFeeAdult)}</span>
+          ${d.chaletsAvailable ? '<span class="badge ok">Chalets</span>' : ''}
+          ${d.campingAvailable ? '<span class="badge">Camping</span>' : ''}
+          <span class="badge activity-${esc(d.activityLevel)}">${esc(d.activityLevel)||''} activity</span>
+          ${d.crocodilesPresent ? '<span class="badge danger">🐊 Crocs</span>' : ''}
+          ${d.hipposPresent ? '<span class="badge danger">🦛 Hippos</span>' : ''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function openModal(id) {
+  const d = dams.find(x => x.id === id);
+  if (!d) return;
+  const safe = !d.crocodilesPresent && !d.hipposPresent && !d.bilharziaRisk;
+  const species = (d.fishSpecies||[]).map(s => `
+    <div class="species">
+      <h5>${esc(s.commonName)} <span class="sci">${esc(s.scientificName)}</span></h5>
+      <div class="kv">
+        <b>Best bait</b><span>${esc(s.bestBait)||'—'}</span>
+        <b>Best rig</b><span>${esc(s.bestRig)||'—'}</span>
+        <b>Technique</b><span>${esc(s.bestTechnique)||'—'}</span>
+        <b>Avg / record</b><span>${esc(s.averageSize)||'—'} / ${esc(s.recordSize)||'—'}</span>
+        <b>Best season</b><span>${esc(s.bestSeason)||'—'}</span>
+      </div>
+    </div>`).join('') || '<p class="loading">No species listed.</p>';
+  const shops = (d.nearbyBaitShops||[]).map(s => `
+    <div class="shop">
+      <h5>${esc(s.name)} ${s.distanceFromDamKm!=null?`<span class="sci">· ${s.distanceFromDamKm} km away</span>`:''}</h5>
+      <div class="kv">
+        <b>Stock</b><span>${esc(s.stockDescription)||'—'}</span>
+        <b>Hours</b><span>${esc(s.openingHours)||'—'}</span>
+        <b>Phone</b><span>${esc(s.phoneNumber)||'—'}</span>
+        ${s.googleMapsUrl?`<b>Map</b><span><a href="${esc(s.googleMapsUrl)}" target="_blank" rel="noopener">Open in Maps ↗</a></span>`:''}
+      </div>
+    </div>`).join('') || '<p class="loading">No bait shops listed.</p>';
+  const resorts = (d.resorts||[]).map(r => `
+    <div class="resort">
+      <h5>${esc(r.name)} ${r.priceFrom?`<span class="sci">· from ${esc(r.priceFrom)}</span>`:''}</h5>
+      <p style="color:var(--muted);margin:.3rem 0">${esc(r.description)||''}</p>
+      <div class="kv">
+        <b>Accommodation</b><span>${esc(r.accommodationTypes)||'—'}</span>
+        <b>Fishing access</b><span>${esc(r.fishingAccess)||'—'}</span>
+        <b>Facilities</b><span>${esc(r.facilities)||'—'}</span>
+        <b>Phone</b><span>${esc(r.phoneNumber)||'—'}</span>
+        ${r.websiteUrl?`<b>Website</b><span><a href="${esc(r.websiteUrl)}" target="_blank" rel="noopener">${esc(r.websiteUrl)} ↗</a></span>`:''}
+      </div>
+    </div>`).join('') || '<p class="loading">No resorts listed.</p>';
+
+  document.getElementById('modal').innerHTML = `
+    <div class="hero" style="background-image:url('${esc(d.imageUrl)}')">
+      <button class="close" onclick="closeModal()">✕</button>
+      <div class="title"><div class="region">${esc(d.region)||''}</div><h2>${esc(d.name)}</h2></div>
+    </div>
+    <div class="content">
+      <p class="desc">${esc(d.description)}</p>
+      <div class="info-row" style="margin-top:14px">
+        <span><b>Address:</b> ${esc(d.address)||'—'}</span>
+        <span><b>Best times:</b> ${esc(d.bestFishingTimes)||'—'}</span>
+      </div>
+      <div class="info-row" style="margin-top:8px">
+        <span><b>Adult:</b> ${fmt(d.entranceFeeAdult)}</span>
+        <span><b>Child:</b> ${fmt(d.entranceFeeChild)}</span>
+        <span><b>Camping/night:</b> ${fmt(d.campingFeePerNight)}</span>
+        <span><b>Chalet/night:</b> ${fmt(d.chaletFeePerNight)}</span>
+      </div>
+
+      <div class="section">
+        <h4>⚠️ Safety</h4>
+        <div class="safety ${safe?'safe':''}">${esc(d.dangerAdvisory)||'No advisory provided.'}</div>
+      </div>
+
+      <div class="section"><h4>🐟 Fish Species</h4>${species}</div>
+      <div class="section"><h4>🪱 Bait & Tackle Shops</h4>${shops}</div>
+      <div class="section"><h4>🏕️ Resorts</h4>${resorts}</div>
+
+      <div class="section chat">
+        <h4>🤖 Ask the AI Fishing Advisor</h4>
+        <div class="chat-log" id="chatLog">
+          <div class="msg hint">Ask anything about fishing ${esc(d.name)} — bait, rigs, timing, safety.</div>
+        </div>
+        <div class="suggest">
+          <button onclick="ask(${d.id}, 'What bait works best here right now?')">Best bait?</button>
+          <button onclick="ask(${d.id}, 'When is the best time of day to fish here?')">Best time?</button>
+          <button onclick="ask(${d.id}, 'Any safety concerns I should know about?')">Safety?</button>
+        </div>
+        <div class="chat-input">
+          <input id="chatInput" placeholder="Type your question…"
+                 onkeydown="if(event.key==='Enter')ask(${d.id})">
+          <button id="chatSend" onclick="ask(${d.id})">Ask</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('overlay').classList.add('open');
+}
+
+function closeModal() { document.getElementById('overlay').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+async function ask(damId, preset) {
+  const input = document.getElementById('chatInput');
+  const question = (preset || input.value).trim();
+  if (!question) return;
+  const log = document.getElementById('chatLog');
+  const send = document.getElementById('chatSend');
+  if (!preset) input.value = '';
+  log.insertAdjacentHTML('beforeend', `<div class="msg user">${esc(question)}</div>`);
+  const thinking = document.createElement('div');
+  thinking.className = 'msg ai loading';
+  thinking.innerHTML = 'Thinking<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>';
+  log.appendChild(thinking);
+  log.scrollTop = log.scrollHeight;
+  send.disabled = true;
+  try {
+    const res = await fetch(`${API}/advisor/ask`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ damId, question })
+    });
+    const data = await res.json();
+    thinking.classList.remove('loading');
+    thinking.textContent = data.answer || 'No answer returned.';
+  } catch (e) {
+    thinking.classList.remove('loading');
+    thinking.classList.add('error');
+    thinking.textContent = 'Failed to reach the advisor: ' + e.message;
+  } finally {
+    send.disabled = false;
+    log.scrollTop = log.scrollHeight;
+  }
+}
+
+load();
+</script>
+</body>
+</html>
