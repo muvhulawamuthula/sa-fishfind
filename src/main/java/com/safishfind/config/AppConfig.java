@@ -26,6 +26,8 @@ public class AppConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
+                // Static frontend (index.html + assets served from /static)
+                .requestMatchers("/", "/index.html", "/static/**", "/favicon.ico").permitAll()
                 // Public endpoints — anyone can read dam data
                 .requestMatchers("/api/v1/dams/**").permitAll()
                 .requestMatchers("/api/v1/advisor/**").permitAll()
