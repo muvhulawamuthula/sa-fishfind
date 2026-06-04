@@ -17,7 +17,7 @@ public class DamController {
     private final DamService damService;
 
     // GET /api/v1/dams
-    // Returns all 5 dams
+    // Returns all dams
     @GetMapping
     public ResponseEntity<List<DamDTO>> getAllDams() {
         return ResponseEntity.ok(damService.getAllDams());
