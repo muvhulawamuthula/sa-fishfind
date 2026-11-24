@@ -18,7 +18,6 @@ public class DamDTO {
     private Double latitude;
     private Double longitude;
 
-    // Fees
     private Double entranceFeeAdult;
     private Double entranceFeeChild;
     private Double campingFeePerNight;
@@ -26,12 +25,10 @@ public class DamDTO {
     private Boolean chaletsAvailable;
     private Boolean campingAvailable;
 
-    // Info
     private String description;
     private String bestFishingTimes;
     private String activityLevel;
 
-    // Safety
     private String dangerAdvisory;
     private Boolean hipposPresent;
     private Boolean crocodilesPresent;
@@ -42,8 +39,6 @@ public class DamDTO {
     private List<FishSpeciesDTO> fishSpecies;
     private List<BaitShopDTO> nearbyBaitShops;
     private List<ResortDTO> resorts;
-
-    // ── Nested DTOs ──────────────────────────────────────────────
 
     @Data
     @NoArgsConstructor

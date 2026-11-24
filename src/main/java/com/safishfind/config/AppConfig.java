@@ -12,7 +12,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 @EnableWebSecurity
 public class AppConfig {
 
-    // WebClient for outbound Anthropic API calls
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
@@ -26,13 +25,10 @@ public class AppConfig {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                // Static frontend (index.html + assets served from /static)
                 .requestMatchers("/", "/index.html", "/static/**", "/favicon.ico").permitAll()
-                // Public endpoints — anyone can read dam data
                 .requestMatchers("/api/v1/dams/**").permitAll()
                 .requestMatchers("/api/v1/advisor/**").permitAll()
                 .requestMatchers("/actuator/health").permitAll()
-                // Everything else requires auth (future user features)
                 .anyRequest().authenticated()
             );
         return http.build();

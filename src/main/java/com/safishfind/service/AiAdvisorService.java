@@ -27,13 +27,11 @@ public class AiAdvisorService {
     private static final String MODEL = "claude-opus-4-8";
 
     public AiChatResponse ask(AiChatRequest request) {
-        // Fetch the dam's full data to give Claude context
         DamDTO dam = damService.getDamById(request.getDamId())
                 .orElseThrow(() -> new RuntimeException("Dam not found: " + request.getDamId()));
 
         String systemPrompt = buildSystemPrompt(dam);
 
-        // Call Anthropic API
         Map<String, Object> requestBody = Map.of(
                 "model", MODEL,
                 "max_tokens", 1024,
@@ -67,7 +65,6 @@ public class AiAdvisorService {
         }
     }
 
-    // Builds a rich system prompt using all the dam's data
     private String buildSystemPrompt(DamDTO dam) {
         StringBuilder sb = new StringBuilder();
         sb.append("You are SA FishFind's expert fishing advisor for South African dams, specifically Gauteng.\n");

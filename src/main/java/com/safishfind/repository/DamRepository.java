@@ -19,7 +19,6 @@ public interface DamRepository extends JpaRepository<Dam, Long> {
 
     List<Dam> findByCampingAvailableTrue();
 
-    // Find dams near a GPS coordinate (within ~50km radius)
     @Query(value = """
         SELECT * FROM dams
         WHERE (6371 * ACOS(

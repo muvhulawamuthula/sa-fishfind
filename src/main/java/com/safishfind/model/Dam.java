@@ -42,7 +42,6 @@ public class Dam {
     private Boolean chaletsAvailable;
     private Boolean campingAvailable;
 
-    // Fishing activity description
     @Column(length = 2000)
     private String description;
 
@@ -52,11 +51,9 @@ public class Dam {
     // General activity level: HIGH / MEDIUM / LOW
     private String activityLevel;
 
-    // Danger advisory text
     @Column(length = 1000)
     private String dangerAdvisory;
 
-    // Hippos / crocs present
     private Boolean hipposPresent;
     private Boolean crocodilesPresent;
     private Boolean bilharziaRisk;
@@ -64,7 +61,6 @@ public class Dam {
     // Image URL stored in Azure Blob
     private String imageUrl;
 
-    // Relationships
     @OneToMany(mappedBy = "dam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FishSpecies> fishSpecies;
 
