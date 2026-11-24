@@ -36,7 +36,6 @@ public class BaitShop {
     // Opening hours e.g. "Mon-Fri 06:00-18:00, Sat-Sun 05:00-17:00"
     private String openingHours;
 
-    // What they stock
     @Column(length = 500)
     private String stockDescription;
 
