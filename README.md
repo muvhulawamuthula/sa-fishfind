@@ -136,3 +136,7 @@ src/main/java/com/safishfind/
 - [ ] User accounts + favourite dams
 - [ ] Fishing log / catch journal
 - [ ] Community catches + photos
+
+## License
+
+MIT. See [LICENSE](LICENSE).

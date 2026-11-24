@@ -57,8 +57,6 @@ public class DamService {
                 .collect(Collectors.toList());
     }
 
-    // ── Mapper: Dam entity → DamDTO ──────────────────────────────
-
     private DamDTO toDTO(Dam dam) {
         DamDTO dto = new DamDTO();
         dto.setId(dam.getId());
@@ -82,21 +80,18 @@ public class DamService {
         dto.setBilharziaRisk(dam.getBilharziaRisk());
         dto.setImageUrl(dam.getImageUrl());
 
-        // Map fish species
         if (dam.getFishSpecies() != null) {
             dto.setFishSpecies(dam.getFishSpecies().stream()
                     .map(this::toSpeciesDTO)
                     .collect(Collectors.toList()));
         }
 
-        // Map bait shops
         if (dam.getNearbyBaitShops() != null) {
             dto.setNearbyBaitShops(dam.getNearbyBaitShops().stream()
                     .map(this::toBaitShopDTO)
                     .collect(Collectors.toList()));
         }
 
-        // Map resorts
         if (dam.getResorts() != null) {
             dto.setResorts(dam.getResorts().stream()
                     .map(this::toResortDTO)

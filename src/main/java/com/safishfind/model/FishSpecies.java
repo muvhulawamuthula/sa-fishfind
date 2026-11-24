@@ -37,7 +37,6 @@ public class FishSpecies {
     private String averageSize;         // e.g. "2-8 kg"
     private String recordSize;         // e.g. "14 kg"
 
-    // Season availability
     private String bestSeason;         // e.g. "Year-round, peaks in summer"
 
     private String imageUrl;
